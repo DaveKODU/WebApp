@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AppODU - Old Dominion University</title>
+<link rel="stylesheet" type="text/css" href="mockup.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<?php $page = $_GET['page'];?>
+<script src="apps.js"></script>
+<script>
+if (<?php echo $page ?> == ""){
+	page = "<?php echo $page ?>";
+}
+</script>
+<script src="mockController.js"></script>
+<style>
+h1 {
+	margin: 5px 0px;
+	font-weight: normal;
+	border-bottom: 1px solid #CCC;
+}
+
+h3 {
+	margin: 5px 0px 10px 0px;
+	border-bottom: 1px solid #CCC;
+}
+
+#content {
+	margin: 0px auto;
+	max-width: 900px;
+	padding: 0px 10px;
+}
+
+@media all and (min-width: 400px) {
+	#title {
+		font-size: 1em;
+	}
+}
+
+@media all and (max-width: 399px) {
+	#title {
+		font-size: 3vw;
+	}
+}
+
+#title {
+	background-color: #E7E7E7;
+	border: 1px solid #DDD;
+	padding: 10px;
+	margin-bottom: 20px;
+	box-shadow: 4px 4px 4px #AAA;
+	position: relative;
+}
+
+#titleGroup {
+	display: inline-block;
+}
+
+#titleGroup a {
+	color: #999;
+	margin-right: 20px;
+}
+
+#titleRating {
+	margin: 0px 15px;
+	float: right;
+	text-align: right;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+#titleRating p {
+	margin: 5px 0px;
+}
+
+#leftcolumn {
+	width: 40%;
+	float: left;
+}
+
+#rightcolumn {
+	width: 55%;
+	float: right;
+}
+
+#content img {
+	width: 100%;
+	height: auto;
+	box-shadow: 4px 4px 4px #AAA;
+}
+
+#description {
+	padding: 10px;
+	position: relative;
+	display: inline-block;
+}
+
+#description p {
+	margin: 0px;
+	padding: 0px;
+}
+
+#download {
+	background-color: #E7E7E7;
+	padding: 10px 10px 5px;
+	margin: 20px 0px;
+	position: relative;
+	border: 1px solid #DDD;
+	box-shadow: 4px 4px 4px #AAA;
+}
+
+#start {
+	padding: 7px 5px;
+	display: inline-block;
+	background-color: #0A0;
+	color: white;
+	border: 1px solid #AAA;
+	border-radius: 2px;
+	position: absolute;
+	bottom: -20px;
+	right: 5px;	
+}
+
+#recommend {
+	padding: 10px 20px;
+	margin: 5px;
+	display: inline-block;
+	border-radius: 2px;
+}
+
+.noRec {
+	background-color: #DDD;
+	color: #666;
+	border: 1px solid #AAA;
+}
+
+.noRec:hover {
+	background-color: white;
+}
+
+.rec {
+	background-color: #CC0;
+	color: white;
+	border: 1px solid gold;
+}
+
+.rec:hover {
+	background-color: #AA0;
+}
+
+#start:hover {
+	background-color: white;
+	color: #0A0;
+}
+
+tag {
+	font-size: .75em;
+	background-color: #BBB;
+	padding: 3px;
+	margin: 2px;
+	line-height: 2;
+	border-radius: 2px;
+	color: white;
+}
+
+tag:hover {
+	background-color: #6AF;
+	color: white;
+}
+
+#reviews {
+	padding: 10px;
+	display: inline-block;
+	margin: 0px;
+	position:relative;
+	width: 95%;
+}
+
+#addReview {
+	float: right;
+	padding: 5px 5px;
+	display: inline-block;
+	background-color: #BB0;
+	color: white;
+	border: 1px solid #BB0;
+	border-radius: 2px;
+}
+
+#addReview:hover{
+	background-color: white;
+	color: #BB0;
+}
+
+#newReview {
+	position:absolute;
+	right:0;
+	background-color:white;
+	border: 1px solid #DDD;
+	padding: 5px;
+	margin-top: 20px;
+	display: none;
+	box-shadow: 4px 4px 4px #AAA;
+}
+
+#newReview label {
+	width: 60px;
+	display: inline-block;
+	text-align: right;
+	font-weight: bold;
+	padding: 5px;
+	margin: 7px;
+	vertical-align:top;
+}
+
+#newReview textarea {
+	font-size: 1.2em;
+	border-radius: 4px;
+	border: 1px solid #DDD;
+	padding: 5px;
+	margin: 2px;
+}
+
+.field {
+	font-size: 1.2em;
+	border-radius: 4px;
+	border: 1px solid #DDD;
+	padding: 5px;
+	margin: 2px;
+	display: inline-block;
+	width: 150px;
+}
+
+.reviewTitle {
+	font-weight: bold;
+}
+
+.reviewAuthor {
+	font-size: .75em;
+}
+
+.reviewDate {
+	font-size: .75em;
+}
+
+article {
+	margin: 10px 0px;
+	padding: 10px;
+	border-top: 1px solid #BBB;
+}
+
+article p {
+	margin: 5px 0px;
+}
+
+</style>
+</head>
+<body ng-app="appArray" ng-controller="appCtrl">
+<div id="header">
+	<a href="http://www.odu.edu/"><img src="images/odu_logo.png" alt="Old Dominion University" height="48" width="112"></a>
+	<a id="signin" href="">Sign in</a>
+	<div id="search">
+		<input id="searchbox" type="text" placeholder="Find it now!" ng-model="search">
+			<ul  ng-show="search.length">
+				<li ng-click="search = ''; filterBy.tags = tag.name; filterBy.search = true; filterBy.category = ''; filterBy.title = 'Search for ' + tag.name" ng-repeat="tag in filteredTags = (tags | filter:search | limitTo: 8 )">{{tag.name}}</li>
+				<li ng-hide="filteredTags.length">No suggestions</li>
+			</ul>
+		<input id="submit" type="submit" value="Go" ng-click="filterBy.tags = search; filterBy.category = ''; filterBy.search = true; filterBy.title = 'Search for ' + search; search = ''">
+	</div>
+</div>
+
+<div id="navbar">
+	<div id="tabs">
+		<span class="active" id='home'><a href="mockup.html">Home</a></span>
+		<span id='newest' ng-click="filterBy.order='title'; reverse=false; modifier='Newest in'"><a href="#">Newest</a></span>
+		<span id='highest rated' ng-click="filterBy.order='rating'; reverse=true; modifier='Highest Rated in'"><a href="#">Top</a></span>
+		<span id='popular' ng-click="filterBy.order='title'; reverse=true; modifier='Popular in'"><a href="#">Popular</a></span>
+	</div>
+</div>
+
+<div id="roleTitle">
+	<a href='#'>&#9660 All Roles</a>
+	<ul id="role">
+		<li ng-click="filterBy.role = ''">All Roles</li>
+		<li ng-click="filterBy.role = 'student'">Student</li>
+		<li ng-click="filterBy.role = 'faculty'">Faculty</li>
+		<li ng-click="filterBy.role = 'staff'">Staff</li>
+	</ul>	
+</div>
+<br>
+
+<div id="category" >
+	<span ng-click="filterBy.title = category.title; filterBy.category = category.category; filterBy.limit = category.limit; filterBy.search = category.search" ng-repeat="category in categories">
+		<a href='#'><p>{{category.title}}</p></a>
+	</span>
+</div>
+<br>
+
+<div id="content" ng-repeat="app in apps | filter: {title: current}">
+	<div id="title">
+		<div id="titleRating">
+			<p>&#9734 &#9734 &#9734 &#9734 &#9734</p>
+			<p>7 downloads</p>
+		</div>
+		<div id="titleGroup">
+			<h1>{{app.title}}</h1>
+			<a href='#'>ITS Services</a>
+			<a href='#'>{{app.category}}</a>
+		</div>
+	</div>
+	
+	<div id="leftcolumn">
+		<img ng-src={{app.source}} alt={{app.sourceAlt}} height="450px" width="450px">
+		<div id="download">
+			<h3>Download {{app.title}}</h3>
+			<a><span id="start">Download</span></a>
+		</div>
+		<div id="tags">
+			<a><span id="recommend" class="noRec">Recommend</span></a>
+			<br>
+			<p>Tags:</p>
+			<span ng-repeat="tag in app.tags">
+				<tag>{{tag}}</tag>
+			</span>
+			<br>
+			<a href='#'>+add a new tag</a>
+		</div>
+	</div>
+	
+	<div id="rightcolumn">
+		<div id="description">
+			<h3>Description</h3>
+			<p>This would be a brief description of the application or site in question. 
+			<br> <br>
+			It should give a basic idea of what the program is about, without going 
+			into detail and mentioning all features the app might provide. It should
+			definitely serve to convince people that it would be a good idea to download
+			the app it describes.</p>
+			<br>
+			<h3>Features</h3>
+			<ul>
+				<li>A first feature or important detail about the app</li>
+				<li>Another feature</li>
+				<li>Maybe a capability here</li>
+				<li>A possible use of the product here?</li>
+				<li>At least one more thing here</li>
+			</ul>
+		</div>
+		<div id="reviews">
+			<h3>User Reviews</h3>
+			<span id="averageRating">Average&nbspRating:&nbsp&#9734&#9734&#9734&#9734&#9734</span>
+			<span id="addReview">Add Review</span>
+			<div id="newReview">
+				<form action=<?php echo "\"addReview.php\""?> method="post">
+					<input type="hidden" name="page" value="<?php echo $page?>">
+					<label>Name:</label> <input class="field" type="text" name="author" placeholder="Your Name"><br>
+					<label>Rating:</label> <input class="field" type="number" name="rating" min="1" max="5" placeholder="Rate"><br>
+					<label>Title:</label> <input class="field" type="text" name="title" placeholder="Title"><br>
+					<label>Review:</label>
+					<textarea name="text" rows="5" cols="25" placeholder="Your Review"></textarea><br>
+					<input type="submit" name="review" value="Submit">
+				</form>
+			</div>
+			<br>
+			<span id="myRating">My&nbspRating:&nbsp&#9734&#9734&#9734&#9734&#9734</span> <br>
+			<?php
+			if ($rfile = fopen("reviews/$page.txt", "r")){
+				while (!feof($rfile)) {
+					echo '<article>';
+					echo '<span class="reviewTitle">'.fgets($rfile).'</span>';
+					echo '<br>';
+					$x = fgets($rfile);
+					echo '<span class="reviewRating">';
+					for ($i=0; $i<$x; $i++) {
+						echo "&#9734";
+					};
+					echo '</span>';
+					echo '<br>';
+					echo '<span class="reviewAuthor">'.fgets($rfile).'</span>';
+					echo '<p style="white-space:pre-wrap;">'.fgets($rfile).'</p>';
+					echo '<span class="reviewDate">'.fgets($rfile).'</span>';
+					echo '</article>';
+				}
+			}
+			else {
+				fopen("reviews/$page.txt", "w");
+				echo "<br>No reviews yet";
+			}
+			fclose($rfile);
+			?>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+	var recommended = false;
+	resizer();
+	$("#role").hide();
+	$("#roleTitle a").click(function() {
+		$("#role").toggle();
+	});
+	$("#role li").click(function() {
+		var newTitle = "&#9660 " + $(this).text();
+		$("#roleTitle a").html(newTitle);
+		$("#role").hide();
+	});
+	$("#navbar span").click(function() {
+		var current = $(this);
+		$(".active").removeClass("active");
+		current.addClass("active");
+	});
+	$(window).resize(function() {
+		resizer()
+	});
+	function resizer() {
+		left = $("#leftcolumn");
+		right = $("#rightcolumn");
+		if ($(window).width() <= 400) {
+			left.css("width", "100%");
+			right.css("width", "100%");
+		}
+		else {
+			left.css("width", "40%");
+			right.css("width", "55%");
+		}
+	};
+	$("#addReview").click(function() {
+		$("#newReview").toggle();
+	});
+	$("#recommend").click(function() {
+		var current = $(this);
+		if (recommended) {
+			current.html("recommend");
+			current.removeClass("rec");
+			current.addClass("noRec");
+		}
+		else {
+			current.html("recommended");
+			current.removeClass("noRec");
+			current.addClass("rec");
+		}
+		recommended = !recommended;
+	});
+});
+</script>

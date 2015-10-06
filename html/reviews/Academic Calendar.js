@@ -1,0 +1,4 @@
+var reviews = [
+	{title:"A review's title", rating:"\u2606\u2606\u2606\u2606\u2606", author:"Bob Critical", text:"This is a review of the product, from whoever the reviewer is. It may or may not give constructive criticism, but as long as its content is not inappropriate it belongs here", date:"Aug 1st, 2015"},
+	{title:"A second Review", rating:"\u2606\u2606\u2606\u2606\u2606", author:"Anne Reviewer", text:"This is a review of the product, from whoever the reviewer is. It may or may not give constructive criticism, but as long as its content is not inappropriate it belongs here. This one is a little longer than the first. \nThis second paragraph might detail the specific likes and dislikes of the reviewer, or detail areas that may be improved. It also might talk about specific problems the application caused for the reviewer.", date:"Sept 14th, 2015"}
+	];

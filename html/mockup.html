@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AppODU - Old Dominion University</title>
+<link rel="stylesheet" type="text/css" href="mockup.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<script src="apps.js"></script>
+<script src="mockController.js"></script>
+<style>
+h2 {
+	display: inline-block;
+	font-size: 150%;
+	color: #669;
+	font-weight: 500;
+	max-width: 240px;
+	margin: 0px 0px 10px 0px;
+}
+
+h4 {
+	margin: 5px;
+	font-size: .8em;
+}
+
+.App {
+	width: 150px;
+	height: 225px;
+	display: inline-block;
+	margin: 5px 10px 10px 10px;
+	text-align: center;
+	background-color: white;
+	border: 1px solid #DDD;
+	border-radius: 3px;
+	overflow: hidden;
+	color: black;
+}
+
+.App:hover {
+	border: 1px solid #DDD;
+	box-shadow: 4px 4px 4px #AAA;
+}
+
+#content {
+	padding: 0px 10px;
+	max-width: 1210px;
+	min-width: 250px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+#content p {
+	text-align: right;
+	float: right;
+	margin-top: 30px;
+}
+
+.more {
+	border-radius: 3px;
+	padding: 6px 10px;
+	border: solid 1px #ffa500;
+	color: #eee;
+	background-color: #ffa500;
+	margin: 0px;
+}
+
+.more:hover {
+	color: #ffa500;
+	background-color: #eee;
+}
+
+#searchResult {
+	padding: 10px;
+	max-width: 1210px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+.appGroup {
+	min-width: 250px;
+	max-width: 1210px;
+	margin-left: auto;
+	margin-right: auto;
+	border-top: 1px solid #A0CCEF;
+	padding: 10px 0px 0px 0px;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	white-space: nowrap;
+}
+
+.appGroup:hover {
+	overflow-x:auto;
+}
+
+.searchGroup {
+	min-width: 250px;
+	max-width: 1210px;
+	margin-left: auto;
+	margin-right: auto;
+	border-top: 1px solid #A0CCEF;
+	padding: 10px 0px 0px 0px;
+}
+</style>
+</head>
+<body ng-app="appArray" ng-controller="appCtrl">
+<div id="header">
+	<a href="http://www.odu.edu/"><img src="images/odu_logo.png" alt="Old Dominion University" height="48" width="112"></a>
+	<a id="signin" href="">Sign in</a>
+	<div id="search">
+		<input id="searchbox" type="text" placeholder="Find it now!" ng-model="search">
+			<ul  ng-show="search.length">
+				<li ng-click="search = ''; filterBy.tags = tag.name; filterBy.search = true; filterBy.category = ''; filterBy.title = 'Search for ' + tag.name" ng-repeat="tag in filteredTags = (tags | filter:search | limitTo: 8 )">{{tag.name}}</li>
+				<li ng-hide="filteredTags.length">No suggestions</li>
+			</ul>
+		<input id="submit" type="submit" value="Go" ng-click="filterBy.tags = search; filterBy.category = ''; filterBy.search = true; filterBy.title = 'Search for ' + search; search = ''">
+	</div>
+</div>
+
+<div id="navbar">
+	<div id="tabs">
+		<span class="active" id='home' ng-click="filterBy.title = ''; filterBy.category = ''; filterBy.order=''; filterBy.limit = 12; modifier=''; filterBy.search=false; filterBy.tags = ''"><a href="#">Home</a></span>
+		<span id='newest' ng-click="filterBy.order='title'; reverse=false; modifier='Newest in'"><a href="#">Newest</a></span>
+		<span id='highest rated' ng-click="filterBy.order='rating'; reverse=true; modifier='Highest Rated in'"><a href="#">Top</a></span>
+		<span id='popular' ng-click="filterBy.order='title'; reverse=true; modifier='Popular in'"><a href="#">Popular</a></span>
+	</div>
+</div>
+
+<div id="roleTitle">
+	<a href='#'>&#9660 All Roles</a>
+	<ul id="role">
+		<li ng-click="filterBy.role = ''">All Roles</li>
+		<li ng-click="filterBy.role = 'student'">Student</li>
+		<li ng-click="filterBy.role = 'faculty'">Faculty</li>
+		<li ng-click="filterBy.role = 'staff'">Staff</li>
+	</ul>	
+</div>
+<br>
+
+<div id="category" >
+	<span ng-click="filterBy.title = category.title; filterBy.category = category.category; filterBy.limit = category.limit; filterBy.search = category.search" ng-repeat="category in categories">
+		<a href='#'><p>{{category.title}}</p></a>
+	</span>
+</div>
+<br>
+
+<div id="content" ng-hide=filterBy.search>
+	<span ng-repeat="category in categories | limitTo:11">
+		<h2>{{modifier}} <br> {{category.title}}</h2>
+		<p ng-click="filterBy.title = category.title; filterBy.category = category.category; filterBy.limit = category.limit; filterBy.search=category.search"><a href="#" class='more'> Show More </a></p>
+		<div class="appGroup">
+			<a class="App" ng-repeat="app in apps | filter:{ category: category.category, role: filterBy.role, tags: filterBy.tags} | limitTo:filterBy.limit | orderBy:filterBy.order:reverse" href=detail.html?page={{app.title}}>
+				<img ng-src={{app.source}} alt={{app.sourceAlt}} height= "150" width="150">
+				<h4>{{app.title}}</h4>
+				&#9734 &#9734 &#9734 &#9734 &#9734
+			</a>
+		</div>
+	</span>
+</div>
+<div id="searchResult" ng-show=filterBy.search>
+	<span>
+		<h2>{{modifier}} {{filterBy.title}}</h2>
+		<div class="searchGroup">
+			<a class="App" ng-repeat="app in apps | filter:{ category: filterBy.category, role: filterBy.role, tags: filterBy.tags} | limitTo:filterBy.limit | orderBy:filterBy.order:reverse" href=detail.html?page={{app.title}}>
+				<img ng-src={{app.source}} alt={{app.sourceAlt}} height= "150" width="150">
+				<h4>{{app.title}}</h4>
+				&#9734 &#9734 &#9734 &#9734 &#9734
+			</a>
+		</div>
+	</span>
+</div>
+</body>
+<script>
+$(document).ready(function() {
+	$("#role").hide();
+	$("#roleTitle a").click(function() {
+		$("#role").toggle();
+	});
+	$("#role li").click(function() {
+		var newTitle = "&#9660 " + $(this).text();
+		$("#roleTitle a").html(newTitle);
+		$("#role").hide();
+	});
+	$("#navbar span").click(function() {
+		var current = $(this);
+		$(".active").removeClass("active");
+		current.addClass("active");
+	});
+});
+</script>
+</html>
